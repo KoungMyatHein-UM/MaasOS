@@ -7,15 +7,12 @@ in
   home.stateVersion = "25.11";
 
   home.file.".local/share/wallpapers/maassec_wallpaper.png".source = wallpaper_file;
-  home.activation.setWallpaper = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      ${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ~/.local/share/wallpapers/maassec_wallpaper.png
-    '';
   home.file.".config/autostart/set-wallpaper.desktop".text = ''
       [Desktop Entry]
       Type=Application
       Name=Set MaasOS Wallpaper
-      Exec=${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ${wallpaper_file}
-      X-KDE-Autostart-phase=1
+      Exec=sh -c "sleep 15 && ${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ${wallpaper_file}"
+      X-KDE-Autostart-phase=2
     '';
 
   home.packages = with pkgs; [
