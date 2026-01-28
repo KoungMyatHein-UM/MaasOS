@@ -5,8 +5,6 @@
 
   home.packages = with pkgs; [
     firefox
-    git
-    htop
   ];
 
   programs.bash.enable = true;

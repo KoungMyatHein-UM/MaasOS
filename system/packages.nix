@@ -2,9 +2,9 @@
 
 {
   environment.systemPackages = with pkgs; [
-    firefox
     git
     htop
+    vim
   ];
 }
 
