@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 let
   wallpaper = ./../home-manager/maassec_wallpaper.png;
