@@ -5,16 +5,21 @@ let
 in
 {
   services.desktopManager.plasma6.enable = true;
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
 
-    systemd.tmpfiles.rules = [
-        "L+ /usr/share/sddm/themes/breeze/MaasSec_BG.png - - - - ${wallpaper}"
-        "d /var/lib/sddm/.config 0700 sddm sddm - -"
-        "f /usr/share/sddm/themes/breeze/theme.conf.user 0644 root root - Background=MaasSec_BG.png"
-      ];
+    settings = {
+      Theme = {
+        CursorTheme = "breeze_cursors";
+      };
+    };
+  };
+
+  environment.etc."sddm/themes/breeze/theme.conf.user".text = ''
+    [General]
+    background=${wallpaper}
+  '';
 }
 
 
