@@ -3,6 +3,11 @@
 {
   home.stateVersion = "25.11";
 
+  home.file.".local/share/wallpapers/maassec_wallpaper.png".source = ./maassec_wallpaper.png;
+  home.activation.setWallpaper = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${pkgs.plasma-desktop}/bin/plasma-apply-wallpaperimage ~/.local/share/wallpapers/maassec_wallpaper.png
+    '';
+
   home.packages = with pkgs; [
   ];
 
