@@ -1,11 +1,19 @@
 # MaasOS
 
-### Check before building:
+### Verify configurations:
+```bash
+nix flake show
 ```
+
+### Check before building:
+```bash
 nix repl
+# Inside repl:
+# :lf .
+# nixosConfigurations.MaasOS.options.installer.cloneConfig.value
 ```
 
 ### To build:
-```
-sudo nix build .#nixosConfigurations.live.config.system.build.isoImage
+```bash
+nix build .#nixosConfigurations.MaasOS.config.system.build.isoImage
 ```
