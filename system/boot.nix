@@ -6,5 +6,5 @@
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "nvme" "sd_mod" ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
 }
