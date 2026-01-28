@@ -8,6 +8,4 @@
   ];
 
   installer.cloneConfig = true;
-
-  welcomeWidget.enable = true;
 }
