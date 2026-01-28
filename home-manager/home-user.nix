@@ -1,9 +1,12 @@
 { pkgs, lib, ... }:
 
+let
+  wallpaper_file = ./maassec_wallpaper.png;
+in
 {
   home.stateVersion = "25.11";
 
-  home.file.".local/share/wallpapers/maassec_wallpaper.png".source = ./maassec_wallpaper.png;
+  home.file.".local/share/wallpapers/maassec_wallpaper.png".source = wallpaper_file;
   home.activation.setWallpaper = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ~/.local/share/wallpapers/maassec_wallpaper.png
     '';
