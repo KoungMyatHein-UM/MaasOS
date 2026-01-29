@@ -18,8 +18,8 @@
 
       modules = [
         ./system
-        ./user.nix
         ./home-manager
+        ./user.nix
         ./installer.nix
 
         {
