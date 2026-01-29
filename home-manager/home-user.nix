@@ -63,7 +63,7 @@
     automake
     libtool
     pkg-config
-    GNU-shtool
+    # shtool - not found
     # git - included in system packages
     jq
 
