@@ -25,8 +25,8 @@
 
   home.packages = with pkgs; [
     ### network analysis
-    tcpdump
-    wireshark
+    # wireshark - in /system/packages.nix: requires low-level system access
+    # tcpdump - same as wireshark
     sniffnet
     aircrack-ng
     ethtool

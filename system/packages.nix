@@ -5,6 +5,8 @@
     git
     htop
     vim
+    wireshark
+    tcpdump
   ];
 }
 
