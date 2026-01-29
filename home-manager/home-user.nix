@@ -25,7 +25,7 @@
 
   home.packages = with pkgs; [
     ### network analysis
-    # wireshark - in /system/packages.nix: requires low-level system access
+    # wireshark - in system packages: requires low-level system access
     # tcpdump - same as wireshark
     sniffnet
     aircrack-ng
@@ -35,7 +35,7 @@
 
     ### web security
     burpsuite
-    zaproxy
+    zap # aka zaproxy
     nikto
     sqlmap
     dirb
@@ -58,7 +58,7 @@
     winetricks
 
     ### dev & scripting
-    stdenv.cc # build-essential
+    stdenv.cc # aka build-essential
     autoconf
     automake
     libtool
@@ -79,11 +79,11 @@
           jupyter-lab
         ]))
 
-    # cryptography
+    ### cryptography
     openssl
     gnupg
 
-    # ops & visibility
+    ### ops & visibility
     tmux
     asciinema
     flameshot
