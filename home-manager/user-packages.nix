@@ -44,7 +44,7 @@ home.packages = with pkgs; [
     # shtool - not found
     # git - included in system packages
     jq
-    jupyter-lab
+    jupyter
 
     ### python
     (python3.withPackages (ps: with ps; [
