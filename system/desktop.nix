@@ -2,7 +2,7 @@
 
 let
   background-image = pkgs.runCommand "maassec-wallpaper" {} ''
-    cp ${./../home-manager/maassec_wallpaper.png} $out
+    cp ${./../res/maassec_wallpaper.png} $out
   '';
 in
 {
