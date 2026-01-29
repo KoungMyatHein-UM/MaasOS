@@ -6,6 +6,7 @@
   imports = [
     ./boot.nix
     ./time.nix
+    ./sddm.nix
     ./desktop.nix
     ./packages.nix
     ./networking.nix

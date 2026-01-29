@@ -10,11 +10,9 @@
       nur.url = "github:nix-community/NUR";
     };
 
-  outputs = { self, nixpkgs, home-manager, nur, ... }: {
+  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs: {
     nixosConfigurations.MaasOS = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-
-      specialArgs = { inherit home-manager nur; };
+      specialArgs = { inherit inputs home-manager nur; };
 
       modules = [
         ./system
