@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 
 {
-  imports = [ ./user-packages.nix ];
+  imports = [ ./maassec-packages.nix ];
 
   home.stateVersion = "25.11";
 
