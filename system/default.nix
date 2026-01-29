@@ -10,6 +10,7 @@
     ./packages.nix
     ./networking.nix
     ./hardware-tweaks.nix
+    ./extras.nix
   ];
 }
 

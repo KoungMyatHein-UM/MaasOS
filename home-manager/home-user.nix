@@ -1,27 +1,95 @@
 { pkgs, lib, ... }:
 
-let
-  wallpaper-image = pkgs.runCommand "maassec-wallpaper-desktop" {} ''
-      cp ${./maassec_wallpaper.png} $out
-    '';
-in
+#let
+#  wallpaper-image = pkgs.runCommand "maassec-wallpaper-desktop" {} ''
+#      cp ${./maassec_wallpaper.png} $out
+#    '';
+#in
 {
   home.stateVersion = "25.11";
 
-  home.packages = [
-      (pkgs.writeTextDir ".config/plasma-org.kde.plasma.desktop-appletsrc" ''
-        [SerializationSettings]
-        FreeCanvases=1
+#  home.packages = [
+#      (pkgs.writeTextDir ".config/plasma-org.kde.plasma.desktop-appletsrc" ''
+#        [SerializationSettings]
+#        FreeCanvases=1
+#
+#        [Containments][1]
+#        WallpaperPlugin=org.kde.image
+#
+#        [Containments][1][Wallpaper][org.kde.image][General]
+#        Image=file://${wallpaper-image}
+#      '')
+#    ];
+#
+#    home.file.".local/share/wallpapers/maassec_wallpaper.png".source = ./maassec_wallpaper.png;
 
-        [Containments][1]
-        WallpaperPlugin=org.kde.image
+  home.packages = with pkgs; [
+    ### network analysis
+    tcpdump
+    wireshark
+    sniffnet
+    aircrack-ng
+    ethtool
+    util-linux
+    net-tools
 
-        [Containments][1][Wallpaper][org.kde.image][General]
-        Image=file://${wallpaper-image}
-      '')
-    ];
+    ### web security
+    burpsuite
+    zaproxy
+    nikto
+    sqlmap
+    dirb
+    # curl - already exists by default
+    wget
 
-    home.file.".local/share/wallpapers/maassec_wallpaper.png".source = ./maassec_wallpaper.png;
+    ### vulnerability assessment
+    openvas-scanner
+    thc-hydra
+    john
+    hashcat
+
+    ### reverse engineering
+    binwalk
+    binutils
+    strace
+    ltrace
+    steghide
+    wineWowPackages.stable
+    winetricks
+
+    ### dev & scripting
+    stdenv.cc # build-essential
+    autoconf
+    automake
+    libtool
+    pkg-config
+    shtool
+    # git - included in system packages
+    jq
+
+    ### python
+    (python3.withPackages (ps: with ps; [
+          pip
+          pwntools
+          scapy
+          requests
+          paramiko
+          cryptography
+          pycryptodome
+          jupyter-lab
+        ]))
+
+    # cryptography
+    openssl
+    gnupg
+
+    # ops & visibility
+    tmux
+    asciinema
+    flameshot
+    polybar
+    # htop - included in system packages
+  ];
 
   programs.bash.enable = true;
   programs.git = {
