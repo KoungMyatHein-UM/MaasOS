@@ -2,8 +2,8 @@
 
 {
   services.displayManager.autoLogin = {
-      enable = false;
-      user = "MaasSec";
+      enable = lib.mkForce false;
+      user = lib.mkForce "MaasSec";
     };
 
   users.users.MaasSec = {
