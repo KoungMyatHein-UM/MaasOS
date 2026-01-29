@@ -1,21 +1,27 @@
 { pkgs, lib, ... }:
 
 let
-  wallpaper = ./maassec_wallpaper.png;
+  wallpaper-image = pkgs.runCommand "maassec-wallpaper-desktop" {} ''
+      cp ${./maassec_wallpaper.png} $out
+    '';
 in
 {
   home.stateVersion = "25.11";
 
-  home.file.".config/autostart/set-wallpaper.desktop".text = ''
-      [Desktop Entry]
-      Type=Application
-      Name=Set MaasOS Wallpaper
-      Exec=sh -c "while ! pgrep -x plasmashell > /dev/null; do sleep 1; done; sleep 2; ${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ${wallpaper}"
-      X-KDE-Autostart-phase=2
-    '';
+  home.packages = [
+      (pkgs.writeTextDir ".config/plasma-org.kde.plasma.desktop-appletsrc" ''
+        [SerializationSettings]
+        FreeCanvases=1
 
-  home.packages = with pkgs; [
-  ];
+        [Containments][1]
+        WallpaperPlugin=org.kde.image
+
+        [Containments][1][Wallpaper][org.kde.image][General]
+        Image=file://${wallpaper-image}
+      '')
+    ];
+
+    home.file.".local/share/wallpapers/maassec_wallpaper.png".source = ./maassec_wallpaper.png;
 
   programs.bash.enable = true;
   programs.git = {
