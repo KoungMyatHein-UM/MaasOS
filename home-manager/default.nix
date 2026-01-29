@@ -1,3 +1,5 @@
+# DO NOT RENAME THIS FILE
+# NixOS expects an entry point default.nix
 { home-manager, ... }:
 
 {
