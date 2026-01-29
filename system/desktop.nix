@@ -5,18 +5,16 @@ let
 in
 {
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-    # We will use the default breeze but override the background via etc
-  };
+    services.displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
 
-  # SDDM on NixOS 25.11 looks here for theme overrides.
-  # This avoids the 'cp' error entirely by just writing the one file we need.
-  environment.etc."sddm/themes/breeze/theme.conf.user".text = ''
-    [General]
-    background=${wallpaper}
-  '';
+    # This forcibly replaces the default Breeze background with your file
+    # It works because SDDM will always look at this path first
+    systemd.tmpfiles.rules = [
+      "L+ /usr/share/sddm/themes/breeze/components/artwork/background.png - - - - ${wallpaper}"
+    ];
 }
 
 

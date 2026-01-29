@@ -6,23 +6,19 @@ in
 {
   home.stateVersion = "25.11";
 
-  home.file.".local/share/wallpapers/maassec_wallpaper.png".source = wallpaper;
-  systemd.user.services.set-maassec-wallpaper = {
+  systemd.user.services.set-wallpaper = {
       Unit = {
-        Description = "Set MaasOS Desktop Wallpaper";
+        Description = "Force MaasOS Wallpaper";
         After = [ "graphical-session.target" ];
         Partof = [ "graphical-session.target" ];
       };
-
       Service = {
         Type = "oneshot";
-        # We use a slight delay and then the command you verified manually
-        ExecStart = "${pkgs.bash}/bin/bash -c 'sleep 3; ${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ${wallpaper}'";
+        # It waits 2 seconds for the shell to breathe, then fires the command you verified
+        ExecStart = "${pkgs.bash}/bin/bash -c 'sleep 2; ${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ${wallpaper}'";
+        RemainAfterExit = true;
       };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
+      Install.WantedBy = [ "graphical-session.target" ];
     };
 
   home.packages = with pkgs; [
