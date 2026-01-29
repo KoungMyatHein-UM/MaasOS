@@ -1,20 +1,26 @@
 { pkgs, ... }:
 
 let
-  wallpaper = ./../home-manager/maassec_wallpaper.png;
+  # This creates a proper derivation for the image file
+  background-image = pkgs.runCommand "maassec-wallpaper" {} ''
+    cp ${./../home-manager/maassec_wallpaper.png} $out
+  '';
 in
 {
   services.desktopManager.plasma6.enable = true;
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "breeze"; # Ensure it is set to the default theme
+    wayland.enable = true;
+  };
 
-    # This forcibly replaces the default Breeze background with your file
-    # It works because SDDM will always look at this path first
-    systemd.tmpfiles.rules = [
-      "L+ /usr/share/sddm/themes/breeze/components/artwork/background.png - - - - ${wallpaper}"
-    ];
+  # This places the user config file in the system path where Breeze looks
+  environment.systemPackages = [
+    (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+      [General]
+      background=${background-image}
+    '')
+  ];
 }
 
 

@@ -6,20 +6,13 @@ in
 {
   home.stateVersion = "25.11";
 
-  systemd.user.services.set-wallpaper = {
-      Unit = {
-        Description = "Force MaasOS Wallpaper";
-        After = [ "graphical-session.target" ];
-        Partof = [ "graphical-session.target" ];
-      };
-      Service = {
-        Type = "oneshot";
-        # It waits 2 seconds for the shell to breathe, then fires the command you verified
-        ExecStart = "${pkgs.bash}/bin/bash -c 'sleep 2; ${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ${wallpaper}'";
-        RemainAfterExit = true;
-      };
-      Install.WantedBy = [ "graphical-session.target" ];
-    };
+  home.file.".config/autostart/set-wallpaper.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Set MaasOS Wallpaper
+      Exec=sh -c "while ! pgrep -x plasmashell > /dev/null; do sleep 1; done; sleep 2; ${pkgs.kdePackages.plasma-desktop}/bin/plasma-apply-wallpaperimage ${wallpaper}"
+      X-KDE-Autostart-phase=2
+    '';
 
   home.packages = with pkgs; [
   ];
